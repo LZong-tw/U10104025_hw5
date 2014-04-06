@@ -6,15 +6,19 @@ public class Main extends JFrame {
 	/**
 	 * 
 	 */
+	Font font = new Font("Arial", Font.BOLD, 20);// Set a preset font.
 	private static final long serialVersionUID = -7701346465549136986L;
-	int count = 0, countDot = 0;
-	public double a[];
-	static JTextField show = new JTextField();
+	int count = 0, countDot = 0; // count: Make sure +,-,*,/,= could only be
+									// pressed one time.
+									// counDot: Make sure the problem, such as
+									// "54..21" could not be happened.
+	static JTextField show = new JTextField(); // Show the expression by
+												// Textfield.
 
 	public Main() {
 		JPanel p1 = new JPanel();
 
-		JButton B0 = new JButton("0");
+		JButton B0 = new JButton("0"); // B0~B9: Button for number 0~9
 		JButton B1 = new JButton("1");
 		JButton B2 = new JButton("2");
 		JButton B3 = new JButton("3");
@@ -24,17 +28,17 @@ public class Main extends JFrame {
 		JButton B7 = new JButton("7");
 		JButton B8 = new JButton("8");
 		JButton B9 = new JButton("9");
-		JButton BP = new JButton("+");
-		JButton BS = new JButton("-");
-		JButton BM = new JButton("*");
-		JButton BDD = new JButton("/");
-		JButton BE = new JButton("=");
-		JButton Bd = new JButton(".");
-		JButton C = new JButton("C");
+		JButton BP = new JButton("+"); // BP: Button for PLUS(+).
+		JButton BS = new JButton("-"); // BS: Button for SUBTRACT(-).
+		JButton BM = new JButton("*"); // BM: Button for MULTIPLY(*).
+		JButton BDD = new JButton("/"); // BDD: Button for DIVIDE(/).
+		JButton BE = new JButton("="); // BE: Button for EQUAL(=).
+		JButton Bd = new JButton("."); // Bd: Button for DOT(.).
+		JButton C = new JButton("C"); // C: Button for CLEAR(C).
 
 		p1.setLayout(new GridLayout(4, 4));
 
-		p1.add(B7);
+		p1.add(B7); // Arrange the buttons.
 		p1.add(B8);
 		p1.add(B9);
 		p1.add(BP);
@@ -54,7 +58,7 @@ public class Main extends JFrame {
 		p1.add(Bd);
 		p1.add(BDD);
 
-		B0.addActionListener(new A0());
+		B0.addActionListener(new A0()); // Add action listeners for each button.
 		B1.addActionListener(new A1());
 		B2.addActionListener(new A2());
 		B3.addActionListener(new A3());
@@ -72,31 +76,59 @@ public class Main extends JFrame {
 		Bd.addActionListener(new Ad());
 		C.addActionListener(new C());
 
-		JPanel p2 = new JPanel(new BorderLayout());
+		JPanel p2 = new JPanel(new BorderLayout()); // Merge the panels into
+													// one.
 		p2.add(show, BorderLayout.NORTH);
 		p2.add(p1, BorderLayout.CENTER);
-		show.setEditable(false);
+		show.setEditable(false); // Let the Text field can't be edited through
+									// keyboard.
 
-		add(p2, BorderLayout.CENTER);
-		add(C, BorderLayout.SOUTH);
+		add(p2, BorderLayout.CENTER); // Put the merged panel onto the frame.
+		add(C, BorderLayout.SOUTH); // Insert the CLEAR button at the bottom of
+									// the frame.
+
+		B0.setFont(font); // Change the font to the preset one to make the
+							// letters more friendly.
+		B1.setFont(font);
+		B2.setFont(font);
+		B3.setFont(font);
+		B4.setFont(font);
+		B5.setFont(font);
+		B6.setFont(font);
+		B7.setFont(font);
+		B8.setFont(font);
+		B9.setFont(font);
+		BP.setFont(font);
+		BS.setFont(font);
+		BM.setFont(font);
+		BDD.setFont(font);
+		BE.setFont(font);
+		Bd.setFont(font);
+		C.setFont(font);
+		show.setFont(font);
 	}
 
 	public static Main main1;
 
 	public static void main(String[] args) {
-		Check check1 = new Check();
+		Check check1 = new Check(); // Create an object.
 		main1 = new Main();
 		main1.setTitle("Calculator");
 		main1.setSize(400, 400);
 		main1.setLocationRelativeTo(null);
 		main1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main1.setVisible(true);
-		check1.window();
+		check1.window(); // Call the password checking dialog.
 	}
 
-	public class A0 implements ActionListener {
+	public class A0 implements ActionListener { // Set the actions for each
+												// button.
 		public void actionPerformed(ActionEvent e) {
-			show.setText(show.getText() + "0");
+			show.setText(show.getText() + "0"); // show.setText(show.getText() +
+												// "#");
+												// let the text field could
+												// serially show what
+												// user just key in.
 		}
 	}
 
@@ -154,8 +186,11 @@ public class Main extends JFrame {
 		}
 	}
 
-	public class AP implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+	public class AP implements ActionListener { // I use count to save what
+												// users used in the expression,
+		public void actionPerformed(ActionEvent e) { // and make sure they could
+														// only use one time for
+														// each expression.
 			if (count < 10) {
 				show.setText(show.getText() + "+");
 				countDot = 0;
@@ -194,8 +229,9 @@ public class Main extends JFrame {
 		}
 	}
 
-	public class AE implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
+	public class AE implements ActionListener { // When the "=" be clicked, call
+												// other classes according
+		public void actionPerformed(ActionEvent e) { // to the value of "count".
 			double ans = 0, a = 0, b = 0;
 			if (count != 0) {
 				switch (count) {
@@ -224,8 +260,10 @@ public class Main extends JFrame {
 					ans = Dev.dev(a, b);
 					break;
 				}
-				show.setText(show.getText() + "=" + ans);
-				count = 0;
+				show.setText(show.getText() + "=" + ans);// Don't forget to show
+															// the full
+															// equation.
+				count = 0; // And let count back to zero.
 			}
 		}
 	}
@@ -247,12 +285,4 @@ public class Main extends JFrame {
 		}
 	}
 
-	public boolean isInteger(char a[], char b[]) {
-		for (int x = 0; a[x] == '\0' || b[x] == '\0'; x++) {
-			if (a[x] == '.' || b[x] == '.') {
-				return false;
-			}
-		}
-		return true;
-	}
 }

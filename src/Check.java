@@ -7,31 +7,14 @@ public class Check extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -5504430587599356467L;
-	public String getPasswd;
-	public JPasswordField passwd;
-	public JLabel Passw;
-	public JButton ChangePasswd;
-	public int count = 0;
-	// public Check() {
-	// // JPanel pl=new JPanel();
-	// // passwd=new JPasswordField();
-	// // JButton CheckButton=new JButton("Check");
-	// // pl.setLayout(new GridLayout(1,1));
-	// // pl.add(CheckButton);
-	// // CheckButton.addActionListener(new CheckHandler());
-	// //
-	// // JPanel p2=new JPanel(new BorderLayout());
-	// // p2.add(new JLabel("Password:"),BorderLayout.NORTH);
-	// // p2.add(passwd,BorderLayout.CENTER);
-	// // p2.add(pl,BorderLayout.SOUTH);
-	// //
-	// // add(p2,BorderLayout.CENTER);
-	// }
-
-	static String pass = new String("0000");
+	public String getPasswd;								//A string for getting entered password.
+	public JPasswordField passwd;							//Password field.
+	public JLabel Passw;									//Password label.
+	public JButton ChangePasswd;							//Button for changing password.
+	public int count = 0;									//Calculate if the password is changing or not.
+	static String pass = new String("0000");				//Default password.
 	public static Check check = new Check();
-	public static Dialog dialog = new Dialog(check);
-	static boolean passornot = false;
+	public static Dialog dialog = new Dialog(check);		//Use dialog to force users entering the password.
 
 	public void window() {
 		dialog.setTitle("Check Password");
@@ -56,7 +39,7 @@ public class Check extends JFrame {
 		dialog.setVisible(true);
 	}
 
-	public class CheckHandler implements ActionListener {
+	public class CheckHandler implements ActionListener {	//Check if the password entered was right, then close the dialog.
 		public void actionPerformed(ActionEvent e) {
 			getPasswd = new String(passwd.getPassword());
 			if (getPasswd.equals(pass)) {
@@ -65,7 +48,7 @@ public class Check extends JFrame {
 		}
 	}
 
-	public class ChangeHandler implements ActionListener {
+	public class ChangeHandler implements ActionListener {	//Let users can change password.
 		public void actionPerformed(ActionEvent e) {
 			if (count == 0) {
 				Passw.setText("New Password:");
